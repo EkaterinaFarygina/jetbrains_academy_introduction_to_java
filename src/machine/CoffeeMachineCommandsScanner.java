@@ -32,7 +32,8 @@ class CoffeeMachineCommandsScanner {
     }
 
     public static void main(String[] args) {
-        CoffeeMachine coffeeMachine = new CoffeeMachine();
+        Supplies supplies = new Supplies(400, 540, 120, 9);
+        CoffeeMachine coffeeMachine = new CoffeeMachine(supplies, 550);
         Scanner scanner = new Scanner(System.in);
         while (coffeeMachine.getCurrentState() != CoffeeMachineState.OFF) {
             switch (coffeeMachine.getCurrentState()) {

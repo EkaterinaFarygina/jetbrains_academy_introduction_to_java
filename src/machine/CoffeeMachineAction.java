@@ -1,5 +1,5 @@
 package machine;
 
 enum CoffeeMachineAction {
-    BUY, FILL, TAKE, REMAINING, EXIT, BACK
+    BUY, FILL, TAKE, REMAINING, EXIT
 }
