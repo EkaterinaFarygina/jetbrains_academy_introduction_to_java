@@ -9,7 +9,7 @@ enum Coffee {
     private final int amountOfMilk;
     private final int amountOfCoffeeBeans;
     private final int amountOfDisposableCups;
-    // It's ok, that the type of the price is int for this task
+    // For our purposes it is sufficient that the money has int type
     private final int priceInDollars;
 
     Coffee(int amountOfWater, int amountOfMilk, int amountOfCoffeeBeans, int amountOfDisposableCups, int priceInDollars) {

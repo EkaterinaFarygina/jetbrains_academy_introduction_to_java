@@ -2,10 +2,10 @@ package machine;
 
 class CoffeeMachine {
 
-    private final Supplies supplies;
+    private final CoffeeMachineSupplies coffeeMachineSupplies;
 
     // For our purposes it is sufficient that the price has int type
-    private int money;
+    private int dollars;
 
     private CoffeeMachineState currentState;
 
@@ -13,42 +13,35 @@ class CoffeeMachine {
         return currentState;
     }
 
-    CoffeeMachine(Supplies supplies, int money) {
-        this.supplies = supplies;
-        this.money = money;
+    CoffeeMachine(CoffeeMachineSupplies coffeeMachineSupplies, int dollars) {
+        this.coffeeMachineSupplies = coffeeMachineSupplies;
+        this.dollars = dollars;
         this.currentState = CoffeeMachineState.CHOOSING_AN_ACTION;
     }
 
     private void displayContent() {
         System.out.println("\nThe coffee machine has:");
-        supplies.displaySupplies();
-        System.out.printf("$%d of money\n", money);
+        coffeeMachineSupplies.displaySupplies();
+        System.out.printf("$%d of money\n", dollars);
     }
 
     private void prepareCoffee(int chosenOption) {
         final var coffee = Coffee.fromOption(chosenOption);
-        if (coffee == null || !isEnoughIngredients(coffee)) return;
-        supplies.reduceSupplies(coffee);
-        money += coffee.getPriceInDollars();
+        try {
+            coffeeMachineSupplies.reduceSupplies(coffee);
+            dollars += coffee.getPriceInDollars();
+            System.out.println();
+        } catch (IllegalStateException exception) {}
     }
 
     private void takeMoney() {
-        System.out.printf("I gave you $%d\n", money);
-        money = 0;
+        System.out.printf("I gave you $%d\n", dollars);
+        dollars = 0;
         System.out.println();
     }
 
-    private boolean isEnoughIngredients(Coffee coffee) {
-        if (!supplies.canMakeCoffee(coffee)) {
-            return false;
-        } else {
-            System.out.println("I have enough resources, making you a coffee!");
-            return true;
-        }
-    }
-
-    void fillSupplies(Supplies newSupplies) {
-        supplies.addSupplies(newSupplies);
+    void fillSupplies(CoffeeMachineSupplies newCoffeeMachineSupplies) {
+        coffeeMachineSupplies.addSupplies(newCoffeeMachineSupplies);
         currentState = CoffeeMachineState.CHOOSING_AN_ACTION;
     }
 
@@ -58,21 +51,28 @@ class CoffeeMachine {
                 if ("back".equals(input)) {
                     currentState = CoffeeMachineState.CHOOSING_AN_ACTION;
                 } else {
-                    int chosenOption = Integer.parseInt(input);
+                    if (!input.matches("[1-3]")) {
+                        System.out.println("There is no such option. Please try again");
+                        return;
+                    }
+                    final int chosenOption = Integer.parseInt(input);
                     prepareCoffee(chosenOption);
-                    System.out.println();
                     this.currentState = CoffeeMachineState.CHOOSING_AN_ACTION;
                 }
             }
             case CHOOSING_AN_ACTION -> {
-                CoffeeMachineAction coffeeMachineAction = CoffeeMachineAction.valueOf(input.toUpperCase());
-                switch (coffeeMachineAction) {
-                    case EXIT -> currentState = CoffeeMachineState.OFF;
-                    case BUY -> currentState = CoffeeMachineState.CHOOSING_A_TYPE_OF_COFFEE;
-                    case FILL -> currentState = CoffeeMachineState.FILLING_SUPPLIES;
-                    case TAKE -> takeMoney();
-                    case REMAINING -> displayContent();
-                    default -> System.out.println("Option not found. Please try again");
+                try {
+                    final var coffeeMachineAction = CoffeeMachineAction.valueOf(input.toUpperCase());
+                    switch (coffeeMachineAction) {
+                        case EXIT -> currentState = CoffeeMachineState.OFF;
+                        case BUY -> currentState = CoffeeMachineState.CHOOSING_A_TYPE_OF_COFFEE;
+                        case FILL -> currentState = CoffeeMachineState.FILLING_SUPPLIES;
+                        case TAKE -> takeMoney();
+                        case REMAINING -> displayContent();
+                        default -> System.out.println("Option not found. Please try again");
+                    }
+                } catch (IllegalArgumentException exception) {
+                    System.out.println("Invalid command. Please try again");
                 }
             }
         }
