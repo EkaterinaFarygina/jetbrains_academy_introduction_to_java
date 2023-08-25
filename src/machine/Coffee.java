@@ -9,33 +9,43 @@ enum Coffee {
     private final int amountOfMilk;
     private final int amountOfCoffeeBeans;
     private final int amountOfDisposableCups;
-    private final int price;
+    // It's ok, that the type of the price is int for this task
+    private final int priceInDollars;
 
-    Coffee(int amountOfWater, int amountOfMilk, int amountOfCoffeeBeans, int amountOfDisposableCups, int price) {
+    Coffee(int amountOfWater, int amountOfMilk, int amountOfCoffeeBeans, int amountOfDisposableCups, int priceInDollars) {
         this.amountOfWater = amountOfWater;
         this.amountOfMilk = amountOfMilk;
         this.amountOfCoffeeBeans = amountOfCoffeeBeans;
         this.amountOfDisposableCups = amountOfDisposableCups;
-        this.price = price;
+        this.priceInDollars = priceInDollars;
     }
 
     int getAmountOfWater() {
-        return this.amountOfWater;
+        return amountOfWater;
     }
 
     int getAmountOfMilk() {
-        return this.amountOfMilk;
+        return amountOfMilk;
     }
 
     int getAmountOfCoffeeBeans() {
-        return this.amountOfCoffeeBeans;
+        return amountOfCoffeeBeans;
     }
 
     int getAmountOfDisposableCups() {
-        return this.amountOfDisposableCups;
+        return amountOfDisposableCups;
     }
 
-    int getPrice() {
-        return this.price;
+    int getPriceInDollars() {
+        return priceInDollars;
+    }
+
+    static Coffee fromOption(int option) {
+        return switch (option) {
+            case 1 -> Coffee.ESPRESSO;
+            case 2 -> Coffee.LATTE;
+            case 3 -> Coffee.CAPPUCCINO;
+            default -> null;
+        };
     }
 }
