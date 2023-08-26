@@ -29,17 +29,8 @@ public class CoffeeMachineSupplies {
         return amountOfDisposableCups;
     }
 
-    private boolean isEnoughIngredients(Coffee coffee) {
-        if (!canMake(coffee)) {
-            return false;
-        } else {
-            System.out.println("I have enough resources, making you a coffee!");
-            return true;
-        }
-    }
-
     void reduceSupplies(Coffee coffee) {
-        if (coffee == null || !isEnoughIngredients(coffee)) {
+        if (coffee == null || !canMake(coffee)) {
             throw new IllegalStateException();
         }
         amountOfWater -= coffee.getAmountOfWater();
@@ -76,6 +67,7 @@ public class CoffeeMachineSupplies {
             System.out.println("Sorry, not enough disposable cups!");
             return false;
         } else {
+            System.out.println("I have enough resources, making you a coffee!");
             return true;
         }
     }

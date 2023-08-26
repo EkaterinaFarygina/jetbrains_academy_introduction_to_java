@@ -40,12 +40,12 @@ class CoffeeMachineCommandsScanner {
     public static void main(String[] args) {
         final var coffeeMachineSupplies = new CoffeeMachineSupplies(400, 540, 120, 9);
         final var coffeeMachine = new CoffeeMachine(coffeeMachineSupplies, 550);
-        final var coffeeMachineCommandsScanner = new CoffeeMachineCommandsScanner();
+        final var commandsScanner = new CoffeeMachineCommandsScanner();
         while (coffeeMachine.getCurrentState() != CoffeeMachineState.OFF) {
             switch (coffeeMachine.getCurrentState()) {
-                case CHOOSING_AN_ACTION -> coffeeMachineCommandsScanner.askForAction(coffeeMachine);
-                case CHOOSING_A_TYPE_OF_COFFEE -> coffeeMachineCommandsScanner.askForTypeOfCoffee(coffeeMachine);
-                case FILLING_SUPPLIES -> coffeeMachineCommandsScanner.askForQuantityOfSupplies(coffeeMachine);
+                case CHOOSING_AN_ACTION -> commandsScanner.askForAction(coffeeMachine);
+                case CHOOSING_A_TYPE_OF_COFFEE -> commandsScanner.askForTypeOfCoffee(coffeeMachine);
+                case FILLING_SUPPLIES -> commandsScanner.askForQuantityOfSupplies(coffeeMachine);
             }
         }
     }

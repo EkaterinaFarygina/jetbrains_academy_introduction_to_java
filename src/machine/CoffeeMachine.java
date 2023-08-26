@@ -45,36 +45,40 @@ class CoffeeMachine {
         currentState = CoffeeMachineState.CHOOSING_AN_ACTION;
     }
 
+    void chooseTypeOfCoffee(String input) {
+        if ("back".equals(input)) {
+            currentState = CoffeeMachineState.CHOOSING_AN_ACTION;
+        } else {
+            if (!input.matches("[1-3]")) {
+                System.out.println("There is no such option. Please try again");
+                return;
+            }
+            final int chosenOption = Integer.parseInt(input);
+            prepareCoffee(chosenOption);
+            this.currentState = CoffeeMachineState.CHOOSING_AN_ACTION;
+        }
+    }
+
+    void chooseAnAction(String input) {
+        try {
+            final var coffeeMachineAction = CoffeeMachineAction.valueOf(input.toUpperCase());
+            switch (coffeeMachineAction) {
+                case EXIT -> currentState = CoffeeMachineState.OFF;
+                case BUY -> currentState = CoffeeMachineState.CHOOSING_A_TYPE_OF_COFFEE;
+                case FILL -> currentState = CoffeeMachineState.FILLING_SUPPLIES;
+                case TAKE -> takeMoney();
+                case REMAINING -> displayContent();
+                default -> System.out.println("Option not found. Please try again");
+            }
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Invalid command. Please try again");
+        }
+    }
+
     void processCommand(String input) {
         switch (currentState) {
-            case CHOOSING_A_TYPE_OF_COFFEE -> {
-                if ("back".equals(input)) {
-                    currentState = CoffeeMachineState.CHOOSING_AN_ACTION;
-                } else {
-                    if (!input.matches("[1-3]")) {
-                        System.out.println("There is no such option. Please try again");
-                        return;
-                    }
-                    final int chosenOption = Integer.parseInt(input);
-                    prepareCoffee(chosenOption);
-                    this.currentState = CoffeeMachineState.CHOOSING_AN_ACTION;
-                }
-            }
-            case CHOOSING_AN_ACTION -> {
-                try {
-                    final var coffeeMachineAction = CoffeeMachineAction.valueOf(input.toUpperCase());
-                    switch (coffeeMachineAction) {
-                        case EXIT -> currentState = CoffeeMachineState.OFF;
-                        case BUY -> currentState = CoffeeMachineState.CHOOSING_A_TYPE_OF_COFFEE;
-                        case FILL -> currentState = CoffeeMachineState.FILLING_SUPPLIES;
-                        case TAKE -> takeMoney();
-                        case REMAINING -> displayContent();
-                        default -> System.out.println("Option not found. Please try again");
-                    }
-                } catch (IllegalArgumentException exception) {
-                    System.out.println("Invalid command. Please try again");
-                }
-            }
+            case CHOOSING_A_TYPE_OF_COFFEE -> chooseTypeOfCoffee(input);
+            case CHOOSING_AN_ACTION -> chooseAnAction(input);
         }
     }
 }
