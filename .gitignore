@@ -28,4 +28,4 @@ bin/
 ### Mac OS ###
 .DS_Store
 .idea
-/jetbrains_academy_introduction_to_java.iml
+*.iml
