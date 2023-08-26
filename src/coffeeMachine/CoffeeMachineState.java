@@ -1,4 +1,4 @@
-package machine;
+package coffeeMachine;
 
 enum CoffeeMachineState {
     CHOOSING_AN_ACTION,

@@ -1,4 +1,4 @@
-package machine;
+package coffeeMachine;
 
 enum Coffee {
     ESPRESSO(250, 0, 16, 1, 4),

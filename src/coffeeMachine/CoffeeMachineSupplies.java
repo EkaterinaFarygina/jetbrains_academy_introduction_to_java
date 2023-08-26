@@ -1,4 +1,4 @@
-package machine;
+package coffeeMachine;
 
 public class CoffeeMachineSupplies {
     private int amountOfWater;
