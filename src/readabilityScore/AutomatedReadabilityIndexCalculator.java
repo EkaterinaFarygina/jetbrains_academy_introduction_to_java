@@ -1,21 +1,14 @@
 package readabilityScore;
 
-/*
-Information regarding Automated readability index can be found in the corresponding article:
-https://en.wikipedia.org/wiki/Automated_readability_index
+/**
+ * Information regarding Automated readability index can be found in the corresponding article:
+ * <a href="https://en.wikipedia.org/wiki/Automated_readability_index">...</a>
  */
-
-class AutomatedReadabilityIndexCalculator extends AbstractIndexCalculator implements IndexCalculator {
-
-    @Override
-    public void calculateIndex() {
-        if (index == null) {
-            index = 4.71 * text.getCharacters() / text.getWords() + 0.5 * text.getWords() / text.getSentences() - 21.43;
-        }
-    }
+class AutomatedReadabilityIndexCalculator implements IndexCalculator {
 
     @Override
-    public void displayInformation() {
-        System.out.printf("Automated Readability Index: %.2f (about %d-year-olds).\n", index, age);
+    public double calculateIndex(TextStatistics textStatistics) {
+        return 4.71 * textStatistics.getCharacters() / textStatistics.getWords() +
+                0.5 * textStatistics.getWords() / textStatistics.getSentences() - 21.43;
     }
 }

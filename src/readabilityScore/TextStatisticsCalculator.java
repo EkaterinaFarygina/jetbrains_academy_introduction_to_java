@@ -1,20 +1,6 @@
 package readabilityScore;
 
-public class Text {
-    private final int words;
-    private final int sentences;
-    private final int characters;
-    private final int syllables;
-    private final int polysyllables;
-
-
-    Text(String text) {
-        words = calculateWords(text);
-        sentences = calculateSentences(text);
-        characters = calculateCharacters(text);
-        syllables = calculateSyllables(text);
-        polysyllables = calculatePolysyllables(text);
-    }
+public class TextStatisticsCalculator {
 
     private int calculateWords(String text) {
         String[] words = text.split("[\\s]");
@@ -30,9 +16,9 @@ public class Text {
         }
     }
 
-    private int calculateCharacters(String input) {
+    private int calculateCharacters(String text) {
         int characters = 0;
-        for (char character : input.toCharArray()) {
+        for (char character : text.toCharArray()) {
             if (character != ' ' && character != '\n' && character != '\t'){
                 characters++;
             }
@@ -85,31 +71,12 @@ public class Text {
         return polysyllables;
     }
 
-    void displayTextCharacteristics() {
-        System.out.println("Words: " + words);
-        System.out.println("Sentences: " + sentences);
-        System.out.println("Characters: " + characters);
-        System.out.println("Syllables: " + syllables);
-        System.out.println("Polysyllables: " + polysyllables);
-    }
-
-    int getSentences() {
-        return sentences;
-    }
-
-    int getWords() {
-        return words;
-    }
-
-    int getCharacters() {
-        return characters;
-    }
-
-    int getSyllables() {
-        return syllables;
-    }
-
-    int getPolysyllables() {
-        return polysyllables;
+    TextStatistics calculateStatistics(String text) {
+        int words = calculateWords(text);
+        int sentences = calculateSentences(text);
+        int characters = calculateCharacters(text);
+        int syllables = calculateSyllables(text);
+        int polysyllables = calculatePolysyllables(text);
+        return new TextStatistics(words, sentences, characters, syllables, polysyllables);
     }
 }

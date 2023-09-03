@@ -11,7 +11,13 @@ public class CommandScanner {
     }
 
     String askForCommand() {
-        System.out.println("Enter the score you want to calculate (ARI, FK, SMOG, CL, all)");
+        StringBuilder stringBuilder = new StringBuilder("Enter the score you want to calculate (");
+        for (IndexType indexType : IndexType.values()) {
+            stringBuilder.append(indexType.name());
+            stringBuilder.append(", ");
+        }
+        stringBuilder.append("all)");
+        System.out.println(stringBuilder);
         return scanner.nextLine();
     }
 }

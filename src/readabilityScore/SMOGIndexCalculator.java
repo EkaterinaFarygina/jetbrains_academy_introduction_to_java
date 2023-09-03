@@ -1,21 +1,13 @@
 package readabilityScore;
 
-/*
-Information regarding Simple Measure of Gobbledygook index can be found in the corresponding article:
-https://en.wikipedia.org/wiki/SMOG
+/**
+ * Information regarding Simple Measure of Gobbledygook index can be found in the corresponding article:
+ * <a href="https://en.wikipedia.org/wiki/SMOG">...</a>
  */
-
-public class SMOGIndexCalculator extends AbstractIndexCalculator implements IndexCalculator {
-
-    @Override
-    public void calculateIndex() {
-        if (index == null) {
-            index = 1.043 * Math.sqrt((double) text.getPolysyllables() * 30 / text.getSentences()) + 3.1291;
-        }
-    }
+public class SMOGIndexCalculator implements IndexCalculator {
 
     @Override
-    public void displayInformation() {
-        System.out.printf("Simple Measure of Gobbledygook: %.2f (about %d-year-olds).\n", index, age);
+    public double calculateIndex(TextStatistics textStatistics) {
+        return 1.043 * Math.sqrt((double) textStatistics.getPolysyllables() * 30 / textStatistics.getSentences()) + 3.1291;
     }
 }
