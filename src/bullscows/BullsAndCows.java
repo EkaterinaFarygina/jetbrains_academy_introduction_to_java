@@ -10,23 +10,17 @@ public class BullsAndCows {
     }
 
     void displayResult() {
-        String cowFormat = cows == 1 ? "cow" : "cows";
-        String bullFormat = bulls == 1 ? "bull" : "bulls";
-        if (bulls == 0 || cows == 0) {
-            if (bulls == 0 && cows == 0) {
-                System.out.print("Grade: None\n");
-            } else if (bulls == 0) {
-                System.out.printf("Grade: %d %s\n", cows, cowFormat);
-            } else {
-                System.out.printf("Grade: %d %s\n", bulls, bullFormat);
-            }
+        final String cowFormat = cows == 1 ? "cow" : "cows";
+        final String bullFormat = bulls == 1 ? "bull" : "bulls";
+        if (bulls == 0 && cows == 0) {
+            System.out.print("Grade: None\n");
+        } else if (bulls == 0) {
+            System.out.printf("Grade: %d %s\n", cows, cowFormat);
+        } else if (cows == 0) {
+            System.out.printf("Grade: %d %s\n", bulls, bullFormat);
         } else {
             System.out.printf("Grade: %d %s and %d %s\n", bulls, bullFormat, cows, cowFormat);
         }
-    }
-
-    boolean isCorrect(int length) {
-        return bulls == length;
     }
 
     int getBulls() {

@@ -7,20 +7,16 @@ public class BullsAndCowsCalculator {
         this.secretCode = secretCode;
     }
 
-    void displaySecretCode() {
-        System.out.println("The secret code is " + secretCode + ".");
-    }
     BullsAndCows calculateBullsAndCows(String inputCode) {
         var bulls = 0;
         var cows = 0;
         for (int i = 0; i < inputCode.length(); i++) {
-            var currentNumber = inputCode.substring(i, i+1);
-            if (secretCode.contains(currentNumber)) {
-                if (secretCode.indexOf(currentNumber) == i) {
-                    bulls++;
-                } else {
-                    cows++;
-                }
+            final var currentDigit = inputCode.substring(i, i + 1);
+            final var positionInCode = secretCode.indexOf(currentDigit);
+            if (positionInCode == i) {
+                bulls++;
+            } else if (positionInCode != -1) {
+                cows++;
             }
         }
         return new BullsAndCows(bulls, cows);

@@ -3,11 +3,12 @@ package bullscows;
 public class Main {
     private static String generateSecretCode() {
         final var generator = new SecretCodeGenerator();
-        final var length = generator.inputLengthOfCode();
+        final var inputScanner = new InputScanner();
+        final var length = inputScanner.inputLengthOfCode();
         if (length == -1) {
             return "";
         }
-        final var numberOfSymbols = generator.inputNumberOfSymbols();
+        final var numberOfSymbols = inputScanner.inputNumberOfSymbols();
         if (numberOfSymbols == -1) {
             return "";
         }
